@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>DBP.MyLittleBlog</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DBP.MyLittleBlog.Application\DBP.MyLittleBlog.Application.csproj" />
+    <ProjectReference Include="..\DBP.MyLittleBlog.Domain.Tests\DBP.MyLittleBlog.Domain.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="BlogPosts\" />
+  </ItemGroup>
+
+</Project>
