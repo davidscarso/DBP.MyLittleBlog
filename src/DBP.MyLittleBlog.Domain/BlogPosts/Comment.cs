@@ -14,10 +14,11 @@ namespace DBP.MyLittleBlog.BlogPosts
         {
         }
 
-        public Comment(Guid id, string text) : base(id)
+        public Comment(Guid id, string text, Guid blogPostId) : base(id)
         {
             CreationTime = DateTime.Now;
             Text = Check.NotNullOrWhiteSpace(text, nameof(text), maxLength: CommentConsts.MaxTextLength);
+            BlogPostId = blogPostId;
         }
     }
 }

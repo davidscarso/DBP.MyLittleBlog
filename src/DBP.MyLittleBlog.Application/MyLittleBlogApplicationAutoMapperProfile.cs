@@ -16,5 +16,6 @@ public class MyLittleBlogApplicationAutoMapperProfile : Profile
 
         //CreateMap<Comment, CommentDto>();
         CreateMap<CreateUpdateCommentDto, Comment>();
+     
     }
 }

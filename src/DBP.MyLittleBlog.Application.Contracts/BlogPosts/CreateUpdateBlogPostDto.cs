@@ -10,6 +10,8 @@ namespace DBP.MyLittleBlog.BlogPosts
         [Required]
         public Category Category { get; set; } = Category.Undefined;
 
+        public DateTime CreationTime { get; private set; } = DateTime.Now;
+
         [Required]
         [StringLength(BlogPostConsts.MaxTitleLength)]
         public string Title { get; set; }

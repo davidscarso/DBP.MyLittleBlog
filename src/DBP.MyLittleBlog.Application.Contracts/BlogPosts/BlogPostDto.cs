@@ -14,6 +14,6 @@ namespace DBP.MyLittleBlog.BlogPosts
         public string Description { get; set; }
         public string Author { get; set; }
 
-        public ICollection<CommentDto> Comments { get;  set; }
+        public List<CommentDto> Comments { get;  set; }
     }
 }

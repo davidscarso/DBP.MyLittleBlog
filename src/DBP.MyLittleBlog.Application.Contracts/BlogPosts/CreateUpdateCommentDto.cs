@@ -12,5 +12,7 @@ namespace DBP.MyLittleBlog.BlogPosts
 
         [Required]
         public Guid BlogPostId { get; set; }
+
+        public DateTime CreationTime { get; private set; } = DateTime.Now;
     }
 }

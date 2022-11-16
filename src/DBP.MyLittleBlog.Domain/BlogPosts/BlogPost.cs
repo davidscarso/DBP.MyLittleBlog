@@ -14,11 +14,12 @@ namespace DBP.MyLittleBlog.BlogPosts
         public string Description { get; set; }
         public string Author { get; set; }
 
-        public ICollection<Comment> Comments { get; private set; }
+        public List<Comment> Comments { get; private set; } = new List<Comment>();
 
 
         protected BlogPost() { }
-        public BlogPost(Guid id) : base(id) { }
+
+        //public BlogPost(Guid id) : base(id) { }
 
         public BlogPost(Guid id,
                         [Required] string title,
@@ -34,9 +35,15 @@ namespace DBP.MyLittleBlog.BlogPosts
 
             Comments = new List<Comment>();
         }
-        public void AddComment(Comment comment)
+
+        public void AddComment(string text)
         {
-            Comments.Add(comment);
+            Comments.Add(new Comment(Guid.NewGuid(), text, this.Id));
         }
+
+        //public void AddComment(Comment comment)
+        //{
+        //    Comments.Add(comment);
+        //}
     }
 }
