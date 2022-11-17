@@ -1,4 +1,4 @@
-﻿namespace DBP.MyLittleBlog.BlogPosts
+﻿namespace DBP.MyLittleBlog.BlogPosts.Dtos
 {
     public class CommentDto : CommentBaseDto
     {

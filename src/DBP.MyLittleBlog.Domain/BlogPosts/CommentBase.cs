@@ -11,7 +11,7 @@ namespace DBP.MyLittleBlog.BlogPosts
         public DateTime CreationTime { get; private set; }
         public Guid BlogPostId { get; set; }
 
-        public CommentType Type { get; set; }
+        public CommentType commentType { get; set; }
 
         protected CommentBase()
         {
@@ -22,8 +22,6 @@ namespace DBP.MyLittleBlog.BlogPosts
             CreationTime = DateTime.Now;
             Text = Check.NotNullOrWhiteSpace(text, nameof(text), maxLength: CommentConsts.MaxTextLength);
             BlogPostId = blogPostId;
-
-            Type = CommentType.Comment;
         }
     }
 }

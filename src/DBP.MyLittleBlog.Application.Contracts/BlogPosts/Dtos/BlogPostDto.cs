@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml.Linq;
 using Volo.Abp.Application.Dtos;
 
-namespace DBP.MyLittleBlog.BlogPosts
+namespace DBP.MyLittleBlog.BlogPosts.Dtos
 {
     public class BlogPostDto : EntityDto<Guid>
     {

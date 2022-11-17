@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DBP.MyLittleBlog.BlogPosts;
+using DBP.MyLittleBlog.BlogPosts.Dtos;
 
 namespace DBP.MyLittleBlog;
 
@@ -14,9 +15,9 @@ public class MyLittleBlogApplicationAutoMapperProfile : Profile
         CreateMap<BlogPost, BlogPostDto>();
         CreateMap<CreateUpdateBlogPostDto, BlogPost>();
 
-        CreateMap<CommentBase, CommentDto>().IncludeAllDerived();
-        CreateMap<Comment, CommentDto>().IncludeBase<CommentBase, CommentDto>();
-        CreateMap<CommentWithLike, CommentWithLikeDto>().IncludeBase<CommentBase, CommentDto>();
+        CreateMap<CommentBase, CommentBaseDto>().IncludeAllDerived();
+        CreateMap<Comment, CommentDto>().IncludeBase<CommentBase, CommentBaseDto>();
+        CreateMap<CommentWithLike, CommentWithLikeDto>().IncludeBase<CommentBase, CommentBaseDto>();
 
 
         CreateMap<CreateCommentDto, CommentBase>();

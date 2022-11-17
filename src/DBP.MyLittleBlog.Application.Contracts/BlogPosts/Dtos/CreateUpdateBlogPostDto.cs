@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DBP.MyLittleBlog.BlogPosts
+namespace DBP.MyLittleBlog.BlogPosts.Dtos
 {
     public class CreateUpdateBlogPostDto
     {

@@ -110,11 +110,11 @@ public class MyLittleBlogDbContext :
 
             //   b.HasOne<BlogPost>().WithMany().HasForeignKey(x => x.BlogPostId).IsRequired();
 
-            b.HasDiscriminator(b => b.Type)
+            b.HasDiscriminator(b => b.commentType)
             .HasValue<Comment>(CommentType.Comment)
             .HasValue<CommentWithLike>(CommentType.commentWithLike);
 
-            b.Property(e => e.Type)
+            b.Property(e => e.commentType)
                 .HasMaxLength(50);
 
         });

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.Application.Dtos;
 
-namespace DBP.MyLittleBlog.BlogPosts
+namespace DBP.MyLittleBlog.BlogPosts.Dtos
 {
     public class CreateCommentDto
     {

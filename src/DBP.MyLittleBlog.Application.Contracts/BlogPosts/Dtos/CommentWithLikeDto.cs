@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace DBP.MyLittleBlog.BlogPosts
+namespace DBP.MyLittleBlog.BlogPosts.Dtos
 {
     public class CommentWithLikeDto : CommentBaseDto
     {

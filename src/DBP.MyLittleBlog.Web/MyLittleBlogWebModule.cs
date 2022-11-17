@@ -40,6 +40,7 @@ using Volo.Abp.VirtualFileSystem;
 using System.Collections.Generic;
 using Volo.Abp.Json.SystemTextJson;
 using DBP.MyLittleBlog.BlogPosts;
+using DBP.MyLittleBlog.BlogPosts.Dtos;
 
 namespace DBP.MyLittleBlog.Web;
 

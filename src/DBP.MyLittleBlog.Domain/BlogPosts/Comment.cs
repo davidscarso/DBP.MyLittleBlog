@@ -15,7 +15,7 @@ namespace DBP.MyLittleBlog.BlogPosts
 
         public Comment(Guid id, string text, Guid blogPostId) : base(id, text, blogPostId)
         {
-            Type = CommentType.Comment;
+            commentType = CommentType.Comment;
         }
     }
 }
