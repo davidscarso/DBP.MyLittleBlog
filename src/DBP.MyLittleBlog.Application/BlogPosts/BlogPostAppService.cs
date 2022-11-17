@@ -51,7 +51,12 @@ namespace DBP.MyLittleBlog.BlogPosts
         public async Task<BlogPostDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId)
         {
 
-            var comment = await _commentRepository.GetAsync(commentId) as CommentWithLike;
+            //var comment = await _commentRepository.GetAsync(commentId) as CommentWithLike;
+
+            var post = (await _blogPostRepository.GetListAsync())
+                .Where(x => x.Comments.Any(y => y.Id == commentId)).FirstOrDefault();
+
+            var comment = (post.Comments.Where(z => z.Id == commentId).FirstOrDefault() as CommentWithLike);
 
             comment.AddALike();
 

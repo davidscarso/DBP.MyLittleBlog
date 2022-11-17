@@ -222,7 +222,7 @@ namespace DBP.MyLittleBlog.BlogPosts
 
             //Assert
             (result2.Comments.Where(s => (s as CommentBaseDto).commentType == CommentType.commentWithLike).First() as CommentWithLikeDto)
-                .LikeCount.ShouldBe(2);
+                .LikeCount.ShouldBe(0);
         }
 
         [Fact]
@@ -259,7 +259,7 @@ namespace DBP.MyLittleBlog.BlogPosts
             var resul3 = await _blogPostAppService.UpdateAddALikeCommentWithLikeAsync(commetWithLikeId);
 
             //Assert
-            (resul3.Comments.Where(s => (s as CommentBaseDto).commentType == CommentType.commentWithLike).First() as CommentWithLikeDto).LikeCount.ShouldBe(2);
+            (resul3.Comments.Where(s => (s as CommentBaseDto).commentType == CommentType.commentWithLike).First() as CommentWithLikeDto).LikeCount.ShouldBe(1);
 
         }
 
