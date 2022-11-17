@@ -107,10 +107,11 @@ public class MyLittleBlogWebModule : AbpModule
             options.UnsupportedTypes.AddIfNotContains(typeof(CommentBaseDto));
             options.UnsupportedTypes.AddIfNotContains(typeof(CommentDto));
             options.UnsupportedTypes.AddIfNotContains(typeof(CommentWithLikeDto));
-            options.UnsupportedTypes.AddIfNotContains(typeof(CreateCommentDto));
-            options.UnsupportedTypes.AddIfNotContains(typeof(UpdateCommentDto));
-            options.UnsupportedTypes.AddIfNotContains(typeof(CreateUpdateBlogPostDto));
 
+            options.UnsupportedTypes.AddIfNotContains(typeof(BlogPost));
+            options.UnsupportedTypes.AddIfNotContains(typeof(CommentBase));
+            options.UnsupportedTypes.AddIfNotContains(typeof(Comment));
+            options.UnsupportedTypes.AddIfNotContains(typeof(CommentWithLike));
         });
     }
 

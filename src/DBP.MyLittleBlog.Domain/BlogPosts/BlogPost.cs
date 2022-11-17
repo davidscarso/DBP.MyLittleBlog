@@ -7,6 +7,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace DBP.MyLittleBlog.BlogPosts
 {
+    [Serializable]
     public class BlogPost : AggregateRoot<Guid>
     {
         public Category Category { get; set; }
