@@ -1,5 +1,7 @@
 ﻿using DBP.MyLittleBlog.BlogPosts;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -27,7 +29,8 @@ public class MyLittleBlogDbContext :
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
     public DbSet<BlogPost> BlogPosts { get; set; }
-    public DbSet<Comment> Comments { get; set; }
+    public DbSet<CommentBase> Comments { get; set; }
+    //public DbSet<CommentWithLike> CommentWithLikes { get; set; }
 
 
     #region Entities from the modules
@@ -98,7 +101,7 @@ public class MyLittleBlogDbContext :
 
         });
 
-        builder.Entity<Comment>(b =>
+        builder.Entity<CommentBase>(b =>
         {
             b.ToTable(MyLittleBlogConsts.DbTablePrefix + "Comments", MyLittleBlogConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
@@ -106,6 +109,23 @@ public class MyLittleBlogDbContext :
             b.Property(x => x.Text).IsRequired().HasMaxLength(CommentConsts.MaxTextLength);
 
             //   b.HasOne<BlogPost>().WithMany().HasForeignKey(x => x.BlogPostId).IsRequired();
+
+            b.HasDiscriminator(b => b.Type)
+            .HasValue<Comment>(CommentType.Comment)
+            .HasValue<CommentWithLike>(CommentType.commentWithLike);
+
+            b.Property(e => e.Type)
+                .HasMaxLength(50);
+
+        });
+
+
+        builder.Entity<Comment>(b =>
+        {
+        });
+
+        builder.Entity<CommentWithLike>(b =>
+        {
         });
     }
 }

@@ -175,9 +175,8 @@ namespace DBP.MyLittleBlog.BlogPosts
             string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
             var result2 = await _blogPostAppService.CreateCommentAsync(
-                new CreateUpdateCommentDto
+                new CreateCommentDto
                 {
-                    Id = Guid.NewGuid(),
                     BlogPostId = result.Id,
                     Text = text
                 }
@@ -187,6 +186,80 @@ namespace DBP.MyLittleBlog.BlogPosts
             result2.Id.ShouldNotBe(Guid.Empty);
             result2.Comments.ShouldNotBeNull();
             result2.Comments.Count.ShouldBeGreaterThan(0);
+
+        }
+
+
+        [Fact]
+        public async Task Should_Create_A_Valid_Comment_With_Like()
+        {
+            //Act
+            string title = "Lorem ipsum dolor sit amet";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+            string author = "John Perez";
+
+            var result = await _blogPostAppService.CreateAsync(
+                new CreateUpdateBlogPostDto
+                {
+                    Category = Category.Science,
+                    Title = title,
+                    Description = description,
+                    Author = author
+                }
+            );
+
+
+            string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+            var result2 = await _blogPostAppService.CreateCommentWithLikeAsync(
+                new CreateCommentDto
+                {
+                    BlogPostId = result.Id,
+                    Text = text
+                }
+            );
+
+            //Assert
+            (result2.Comments.Where(s => (s as CommentBaseDto).commentType == CommentType.commentWithLike).First() as CommentWithLikeDto)
+                .LikeCount.ShouldBe(2);
+        }
+
+        [Fact]
+        public async Task Should_add_A_lLke_To_Comment_With_Like()
+        {
+            //Act
+            string title = "Lorem ipsum dolor sit amet";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+            string author = "John Perez";
+
+            var result = await _blogPostAppService.CreateAsync(
+                new CreateUpdateBlogPostDto
+                {
+                    Category = Category.Undefined,
+                    Title = title,
+                    Description = description,
+                    Author = author
+                }
+            );
+
+
+            string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+            var result2 = await _blogPostAppService.CreateCommentAsync(
+                new CreateCommentDto
+                {
+                    BlogPostId = result.Id,
+                    Text = text
+                }
+            );
+
+            var commetWithLikeId = result2.Comments.First().Id;
+
+            var resul3 = await _blogPostAppService.UpdateAddALikeCommentWithLikeAsync(commetWithLikeId);
+
+            //Assert
+            (resul3.Comments.Where(s => (s as CommentBaseDto).commentType == CommentType.commentWithLike).First() as CommentWithLikeDto).LikeCount.ShouldBe(2);
+
         }
 
     }

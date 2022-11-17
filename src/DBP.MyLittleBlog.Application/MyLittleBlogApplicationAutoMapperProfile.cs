@@ -14,8 +14,12 @@ public class MyLittleBlogApplicationAutoMapperProfile : Profile
         CreateMap<BlogPost, BlogPostDto>();
         CreateMap<CreateUpdateBlogPostDto, BlogPost>();
 
-        //CreateMap<Comment, CommentDto>();
-        CreateMap<CreateUpdateCommentDto, Comment>();
-     
+        CreateMap<CommentBase, CommentDto>().IncludeAllDerived();
+        CreateMap<Comment, CommentDto>().IncludeBase<CommentBase, CommentDto>();
+        CreateMap<CommentWithLike, CommentWithLikeDto>().IncludeBase<CommentBase, CommentDto>();
+
+
+        CreateMap<CreateCommentDto, CommentBase>();
+        CreateMap<UpdateCommentDto, CommentBase>();
     }
 }

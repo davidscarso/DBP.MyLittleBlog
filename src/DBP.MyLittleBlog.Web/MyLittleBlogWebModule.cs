@@ -37,6 +37,9 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using System.Collections.Generic;
+using Volo.Abp.Json.SystemTextJson;
+using DBP.MyLittleBlog.BlogPosts;
 
 namespace DBP.MyLittleBlog.Web;
 
@@ -68,7 +71,7 @@ public class MyLittleBlogWebModule : AbpModule
                 typeof(MyLittleBlogWebModule).Assembly
             );
         });
-        
+
         PreConfigure<OpenIddictBuilder>(builder =>
         {
             builder.AddValidation(options =>
@@ -94,8 +97,23 @@ public class MyLittleBlogWebModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+        ConfigureDtosToUseNewtonSoft();
     }
-    
+    private void ConfigureDtosToUseNewtonSoft()
+    {
+        Configure<AbpSystemTextJsonSerializerOptions>(options =>
+        {
+            options.UnsupportedTypes.AddIfNotContains(typeof(BlogPostDto));
+            options.UnsupportedTypes.AddIfNotContains(typeof(CommentBaseDto));
+            options.UnsupportedTypes.AddIfNotContains(typeof(CommentDto));
+            options.UnsupportedTypes.AddIfNotContains(typeof(CommentWithLikeDto));
+            options.UnsupportedTypes.AddIfNotContains(typeof(CreateCommentDto));
+            options.UnsupportedTypes.AddIfNotContains(typeof(UpdateCommentDto));
+            options.UnsupportedTypes.AddIfNotContains(typeof(CreateUpdateBlogPostDto));
+
+        });
+    }
+
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
@@ -122,7 +140,7 @@ public class MyLittleBlogWebModule : AbpModule
             );
         });
     }
-    
+
     private void ConfigureAutoMapper()
     {
         Configure<AbpAutoMapperOptions>(options =>

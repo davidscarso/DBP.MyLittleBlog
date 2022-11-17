@@ -9,11 +9,11 @@ namespace DBP.MyLittleBlog.BlogPosts
     public class BlogPostDto : EntityDto<Guid>
     {
         public Category Category { get; set; }
-        public DateTime CreationTime { get;  set; }
+        public DateTime CreationTime { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
 
-        public List<CommentDto> Comments { get;  set; }
+        public virtual ICollection<CommentBaseDto> Comments { get; set; }
     }
 }

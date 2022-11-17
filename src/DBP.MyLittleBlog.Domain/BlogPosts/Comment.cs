@@ -1,24 +1,21 @@
 ﻿using System;
-using Volo.Abp;
-using Volo.Abp.Domain.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DBP.MyLittleBlog.BlogPosts
 {
-    public class Comment : Entity<Guid>
+    [Serializable]
+    public class Comment : CommentBase
     {
-        public string Text { get; set; }
-        public DateTime CreationTime { get; private set; }
-        public Guid BlogPostId { get; set; }
-
         protected Comment()
         {
         }
 
-        public Comment(Guid id, string text, Guid blogPostId) : base(id)
+        public Comment(Guid id, string text, Guid blogPostId) : base(id, text, blogPostId)
         {
-            CreationTime = DateTime.Now;
-            Text = Check.NotNullOrWhiteSpace(text, nameof(text), maxLength: CommentConsts.MaxTextLength);
-            BlogPostId = blogPostId;
+            Type = CommentType.Comment;
         }
     }
 }

@@ -4,6 +4,7 @@ using DBP.MyLittleBlog.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DBP.MyLittleBlog.Migrations
 {
     [DbContext(typeof(MyLittleBlogDbContext))]
-    partial class MyLittleBlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221117192157_added_commnet_with_like")]
+    partial class added_commnet_with_like
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

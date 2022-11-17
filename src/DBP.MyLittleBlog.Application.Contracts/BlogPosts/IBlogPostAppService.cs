@@ -12,8 +12,12 @@ namespace DBP.MyLittleBlog.BlogPosts
             PagedAndSortedResultRequestDto,
             CreateUpdateBlogPostDto>
     {
-        // ADD the NEW METHOD
-        //TODO: add addmethod
-        public Task<BlogPostDto> CreateCommentAsync(CreateUpdateCommentDto input);
+   
+        public Task<BlogPostDto> CreateCommentAsync(CreateCommentDto input); 
+      
+        public Task<BlogPostDto> CreateCommentWithLikeAsync(CreateCommentDto input);
+
+        public Task<BlogPostDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId);
+
     }
 }

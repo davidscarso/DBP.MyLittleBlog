@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
@@ -14,7 +15,7 @@ namespace DBP.MyLittleBlog.BlogPosts
         public string Description { get; set; }
         public string Author { get; set; }
 
-        public List<Comment> Comments { get; private set; } = new List<Comment>();
+        public virtual ICollection<CommentBase> Comments { get; private set; } = new List<CommentBase>();
 
 
         protected BlogPost() { }
@@ -33,17 +34,19 @@ namespace DBP.MyLittleBlog.BlogPosts
             Description = Check.NotNullOrWhiteSpace(description, nameof(description), maxLength: BlogPostConsts.MaxDescriptionLength);
             Author = Check.NotNullOrWhiteSpace(author, nameof(author), maxLength: BlogPostConsts.MaxAuthorLength);
 
-            Comments = new List<Comment>();
+            Comments = new List<CommentBase>();
         }
 
         public void AddComment(string text)
         {
             Comments.Add(new Comment(Guid.NewGuid(), text, this.Id));
+
+
+        }
+        public void AddCommentWithLike(string text)
+        {
+            Comments.Add(new CommentWithLike(Guid.NewGuid(), text, this.Id));
         }
 
-        //public void AddComment(Comment comment)
-        //{
-        //    Comments.Add(comment);
-        //}
     }
 }
