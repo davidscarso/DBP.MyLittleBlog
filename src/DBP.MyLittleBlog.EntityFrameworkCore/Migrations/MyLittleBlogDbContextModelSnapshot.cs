@@ -81,7 +81,7 @@ namespace DBP.MyLittleBlog.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("commentType")
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
@@ -91,7 +91,7 @@ namespace DBP.MyLittleBlog.Migrations
 
                     b.ToTable("AppComments", (string)null);
 
-                    b.HasDiscriminator<int>("Type");
+                    b.HasDiscriminator<int>("commentType");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

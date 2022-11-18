@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DBP.MyLittleBlog.Migrations
 {
     [DbContext(typeof(MyLittleBlogDbContext))]
-    [Migration("20221117192157_added_commnet_with_like")]
+    [Migration("20221118184406_added_commnet_with_like")]
     partial class added_commnet_with_like
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,7 +83,7 @@ namespace DBP.MyLittleBlog.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("commentType")
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
@@ -93,7 +93,7 @@ namespace DBP.MyLittleBlog.Migrations
 
                     b.ToTable("AppComments", (string)null);
 
-                    b.HasDiscriminator<int>("Type");
+                    b.HasDiscriminator<int>("commentType");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

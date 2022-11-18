@@ -15,7 +15,7 @@ namespace DBP.MyLittleBlog.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "Type",
+                name: "commentType",
                 table: "AppComments",
                 type: "int",
                 maxLength: 50,
@@ -30,7 +30,7 @@ namespace DBP.MyLittleBlog.Migrations
                 table: "AppComments");
 
             migrationBuilder.DropColumn(
-                name: "Type",
+                name: "commentType",
                 table: "AppComments");
         }
     }
