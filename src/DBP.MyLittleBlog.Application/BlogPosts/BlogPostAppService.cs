@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using DBP.MyLittleBlog.BlogPosts.Dtos;
+using Scriban.Runtime.Accessors;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.ObjectMapping;
 
 namespace DBP.MyLittleBlog.BlogPosts
 {
@@ -24,34 +27,59 @@ namespace DBP.MyLittleBlog.BlogPosts
             _commentRepository = commentRepository;
         }
 
-        public async Task<BlogPostDto> CreateCommentAsync(CreateCommentDto input)
+        public async Task<CommentDto> CreateCommentAsync(CreateCommentDto input)
         {
             var post = await _blogPostRepository.GetAsync(input.BlogPostId, true);
 
-            post.AddComment(input.Text);
+            var newComment = new Comment(Guid.NewGuid(),
+                input.Text,
+                input.BlogPostId
+                );
 
-            var postUpdated = await _blogPostRepository.UpdateAsync(post);
+            post.AddComment(newComment);
 
-            var blogPostDto = ObjectMapper.Map<BlogPost, BlogPostDto>(postUpdated);
+            _ = await _blogPostRepository.UpdateAsync(post, true);
+
+            var blogPostDto = ObjectMapper.Map<Comment, CommentDto>(newComment);
             return blogPostDto;
         }
 
-        public async Task<BlogPostDto> CreateCommentWithLikeAsync(CreateCommentDto input)
+        public async Task<CommentWithLikeDto> CreateCommentWithLikeAsync(CreateCommentDto input)
         {
             var post = await _blogPostRepository.GetAsync(input.BlogPostId, true);
 
-            post.AddCommentWithLike(input.Text);
+            var newComment = new CommentWithLike(Guid.NewGuid(),
+                input.Text,
+                input.BlogPostId
+                );
 
-            var postUpdated = await _blogPostRepository.UpdateAsync(post);
+            post.AddComment(newComment);
 
-            var blogPostDto = ObjectMapper.Map<BlogPost, BlogPostDto>(postUpdated);
+            _ = await _blogPostRepository.UpdateAsync(post, true);
+
+            var blogPostDto = ObjectMapper.Map<CommentWithLike, CommentWithLikeDto>(newComment);
             return blogPostDto;
         }
 
-        public async Task<BlogPostDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId)
+        public async Task<ICollection<CommentWithLikeDto>> GetCommentWihtLikesAsync(Guid blogPostId)
+        {
+            var post = await _blogPostRepository.GetAsync(blogPostId, true);
+
+            var comments = post.Comments
+                .Where(x => x.commentType == CommentType.CommentWithLike && (x as CommentWithLike).LikeCount > 0)
+                .Select(o => o as CommentWithLike).ToList<CommentWithLike>();
+
+
+            var commentDtos = ObjectMapper.Map<List<CommentWithLike>, List<CommentWithLikeDto>>(comments);
+
+            return commentDtos;
+        }
+
+        public async Task<CommentWithLikeDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId)
         {
 
-            //var comment = await _commentRepository.GetAsync(commentId) as CommentWithLike;
+            //QUESTION: why if I comment this line it doesn't pass the test, del pos is null?
+            var commentXX = await _commentRepository.GetAsync(commentId) as CommentWithLike;
 
             var post = (await _blogPostRepository.GetListAsync())
                 .Where(x => x.Comments.Any(y => y.Id == commentId)).FirstOrDefault();
@@ -60,10 +88,11 @@ namespace DBP.MyLittleBlog.BlogPosts
 
             comment.AddALike();
 
-            var commentUpdated = await _commentRepository.UpdateAsync(comment);
+            //var commentUpdated = await _commentRepository.UpdateAsync(comment, true);
 
-            var postUpdated = await _blogPostRepository.GetAsync(commentUpdated.BlogPostId, true);
-            var blogPostDto = ObjectMapper.Map<BlogPost, BlogPostDto>(postUpdated);
+            _ = await _blogPostRepository.UpdateAsync(post, true);
+
+            var blogPostDto = ObjectMapper.Map<CommentWithLike, CommentWithLikeDto>(comment);
             return blogPostDto;
         }
     }

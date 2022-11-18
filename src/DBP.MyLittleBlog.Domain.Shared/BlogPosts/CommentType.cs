@@ -6,8 +6,7 @@ namespace DBP.MyLittleBlog.BlogPosts
 {
     public enum CommentType
     {
-
         Comment,
-        commentWithLike
+        CommentWithLike
     }
 }

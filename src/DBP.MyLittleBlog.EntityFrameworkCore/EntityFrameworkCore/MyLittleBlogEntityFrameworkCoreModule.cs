@@ -12,6 +12,8 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace DBP.MyLittleBlog.EntityFrameworkCore;
 
@@ -38,16 +40,23 @@ public class MyLittleBlogEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<MyLittleBlogDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
         });
 
         Configure<AbpDbContextOptions>(options =>
         {
-                /* The main point to change your DBMS.
-                 * See also MyLittleBlogMigrationsDbContextFactory for EF Core tooling. */
+            /* The main point to change your DBMS.
+             * See also MyLittleBlogMigrationsDbContextFactory for EF Core tooling. */
             options.UseSqlServer();
+
+        });
+
+        Configure<AbpEntityOptions>(options =>
+        {
+            options.Entity<BlogPosts.BlogPost>(orderOptions =>
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Comments));
         });
 
     }

@@ -112,7 +112,7 @@ public class MyLittleBlogDbContext :
 
             b.HasDiscriminator(b => b.commentType)
             .HasValue<Comment>(CommentType.Comment)
-            .HasValue<CommentWithLike>(CommentType.commentWithLike);
+            .HasValue<CommentWithLike>(CommentType.CommentWithLike);
 
             b.Property(e => e.commentType)
                 .HasMaxLength(50);

@@ -14,7 +14,7 @@ namespace DBP.MyLittleBlog.BlogPosts
         public CommentWithLike(Guid id, string text, Guid blogPostId) : base(id, text, blogPostId)
         {
             LikeCount = 0;
-            commentType = CommentType.commentWithLike;
+            commentType = CommentType.CommentWithLike;
         }
 
         public int AddALike()

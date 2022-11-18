@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
 
@@ -21,7 +22,6 @@ namespace DBP.MyLittleBlog.BlogPosts
 
         protected BlogPost() { }
 
-        //public BlogPost(Guid id) : base(id) { }
 
         public BlogPost(Guid id,
                         [Required] string title,
@@ -38,16 +38,11 @@ namespace DBP.MyLittleBlog.BlogPosts
             Comments = new List<CommentBase>();
         }
 
-        public void AddComment(string text)
+        public void AddComment(CommentBase comment)
         {
-            Comments.Add(new Comment(Guid.NewGuid(), text, this.Id));
+            if (comment.BlogPostId == Guid.Empty) comment.BlogPostId = this.Id;
 
-
+            Comments.Add(comment);
         }
-        public void AddCommentWithLike(string text)
-        {
-            Comments.Add(new CommentWithLike(Guid.NewGuid(), text, this.Id));
-        }
-
     }
 }

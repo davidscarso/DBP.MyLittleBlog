@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBP.MyLittleBlog.BlogPosts.Dtos;
 using Volo.Abp.Application.Dtos;
@@ -13,12 +14,13 @@ namespace DBP.MyLittleBlog.BlogPosts
             PagedAndSortedResultRequestDto,
             CreateUpdateBlogPostDto>
     {
-   
-        public Task<BlogPostDto> CreateCommentAsync(CreateCommentDto input); 
-      
-        public Task<BlogPostDto> CreateCommentWithLikeAsync(CreateCommentDto input);
 
-        public Task<BlogPostDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId);
+        public Task<CommentDto> CreateCommentAsync(CreateCommentDto input);
 
+        public Task<CommentWithLikeDto> CreateCommentWithLikeAsync(CreateCommentDto input);
+
+        public Task<CommentWithLikeDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId);
+
+        public  Task<ICollection<CommentWithLikeDto>> GetCommentWihtLikesAsync(Guid blogPostId);
     }
 }

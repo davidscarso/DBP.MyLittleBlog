@@ -104,15 +104,7 @@ public class MyLittleBlogWebModule : AbpModule
     {
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
-            options.UnsupportedTypes.AddIfNotContains(typeof(BlogPostDto));
-            options.UnsupportedTypes.AddIfNotContains(typeof(CommentBaseDto));
-            options.UnsupportedTypes.AddIfNotContains(typeof(CommentDto));
             options.UnsupportedTypes.AddIfNotContains(typeof(CommentWithLikeDto));
-
-            options.UnsupportedTypes.AddIfNotContains(typeof(BlogPost));
-            options.UnsupportedTypes.AddIfNotContains(typeof(CommentBase));
-            options.UnsupportedTypes.AddIfNotContains(typeof(Comment));
-            options.UnsupportedTypes.AddIfNotContains(typeof(CommentWithLike));
         });
     }
 
