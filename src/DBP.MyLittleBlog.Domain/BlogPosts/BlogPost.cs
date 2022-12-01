@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBP.MyLittleBlog.BlogPosts.Specifications;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +23,6 @@ namespace DBP.MyLittleBlog.BlogPosts
 
         protected BlogPost() { }
 
-
         public BlogPost(Guid id,
                         [Required] string title,
                         [Required] string description,
@@ -38,11 +38,21 @@ namespace DBP.MyLittleBlog.BlogPosts
             Comments = new List<CommentBase>();
         }
 
+        public bool IsActive()
+        {
+            return new ActiveBlogPostSpecification().IsSatisfiedBy(this);
+        }
+
         public void AddComment(CommentBase comment)
         {
             if (comment.BlogPostId == Guid.Empty) comment.BlogPostId = this.Id;
 
             Comments.Add(comment);
+        }
+
+        public void UpdateCreationTime(DateTime input)
+        {
+            CreationTime = input;
         }
     }
 }

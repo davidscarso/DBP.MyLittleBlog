@@ -4,7 +4,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using DBP.MyLittleBlog.BlogPosts.CustomRepositoryInterfaces;
 using DBP.MyLittleBlog.BlogPosts.Dtos;
+using DBP.MyLittleBlog.BlogPosts.Specifications;
 using Scriban.Runtime.Accessors;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -18,12 +21,13 @@ namespace DBP.MyLittleBlog.BlogPosts
          CrudAppService<BlogPost, BlogPostDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateBlogPostDto>,
         IBlogPostAppService
     {
-        private readonly IRepository<BlogPost, Guid> _blogPostRepository;
+        private readonly IBlogPostRepository _blogPostRepository;
         private readonly IRepository<CommentBase, Guid> _commentRepository;
 
-        public BlogPostAppService(IRepository<BlogPost, Guid> repository, IRepository<CommentBase, Guid> commentRepository) : base(repository)
+
+        public BlogPostAppService(IBlogPostRepository blogPostRepository, IRepository<CommentBase, Guid> commentRepository) : base(blogPostRepository)
         {
-            _blogPostRepository = repository;
+            _blogPostRepository = blogPostRepository;
             _commentRepository = commentRepository;
         }
 
@@ -61,6 +65,15 @@ namespace DBP.MyLittleBlog.BlogPosts
             return blogPostDto;
         }
 
+        public async Task<ICollection<BlogPostDto>> GetActiveAsync()
+        {
+            var activePosts = await _blogPostRepository.GetPostAsync(new ActiveBlogPostSpecification());
+
+            var activePostDtos = ObjectMapper.Map<List<BlogPost>, List<BlogPostDto>>(activePosts);
+
+            return activePostDtos;
+        }
+
         public async Task<ICollection<CommentWithLikeDto>> GetCommentWihtLikesAsync(Guid blogPostId)
         {
             var post = await _blogPostRepository.GetAsync(blogPostId, true);
@@ -77,7 +90,6 @@ namespace DBP.MyLittleBlog.BlogPosts
 
         public async Task<CommentWithLikeDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId)
         {
-
             //QUESTION: why if I comment this line it doesn't pass the test, del pos is null?
             var commentXX = await _commentRepository.GetAsync(commentId) as CommentWithLike;
 

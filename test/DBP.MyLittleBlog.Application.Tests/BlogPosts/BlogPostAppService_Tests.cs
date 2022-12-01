@@ -24,7 +24,7 @@ namespace DBP.MyLittleBlog.BlogPosts
         public async Task Should_Get_List_Of_Post()
         {
             //Act
-            string title = "Lorem ipsum dolor sit amet";
+            string title = "Dolor sit amet";
             string author = "John Perez";
 
             var result = await _blogPostAppService.GetListAsync(
@@ -38,13 +38,27 @@ namespace DBP.MyLittleBlog.BlogPosts
         }
 
         [Fact]
+        public async Task Should_Get_List_Of_Active_Post()
+        {
+            //Act
+            string title = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED_TITLE;
+            string author = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED_AUTHOR;
+
+            var result = await _blogPostAppService.GetActiveAsync();
+
+            //Assert
+            result.Count.ShouldBe(1);
+            result.ShouldContain(b => b.Id == TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+        }
+
+        [Fact]
         public async Task Should_Get_a_Post()
         {
             //Act
-            string title = "Lorem ipsum dolor sit amet";
-            string author = "John Perez";
+            string title = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED_TITLE;
+            string author = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED_AUTHOR;
 
-            var result = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            var result = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
 
             //Assert
             result.Title.ShouldBe(title);
@@ -162,15 +176,15 @@ namespace DBP.MyLittleBlog.BlogPosts
             var result2 = await _blogPostAppService.CreateCommentAsync(
                 new CreateCommentDto
                 {
-                    BlogPostId = TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
+                    BlogPostId = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
                     Text = text
                 }
             );
 
-            var testPost = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            var testPost = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
 
             //Assert
-            testPost.Id.ShouldBe(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            testPost.Id.ShouldBe(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
             testPost.Comments.ShouldNotBeNull();
             (testPost.Comments.Where(s => s.commentType == CommentType.Comment)).Count().ShouldBe(1);
         }
@@ -185,24 +199,24 @@ namespace DBP.MyLittleBlog.BlogPosts
             var result2 = await _blogPostAppService.CreateCommentWithLikeAsync(
                 new CreateCommentDto
                 {
-                    BlogPostId = TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
+                    BlogPostId = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
                     Text = text
                 }
             );
 
-            var testPost = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            var testPost = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
 
             //Assert
-            testPost.Id.ShouldBe(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            testPost.Id.ShouldBe(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
             testPost.Comments.ShouldNotBeNull();
-            (testPost.Comments.Where(s => s.commentType == CommentType.CommentWithLike)).Count().ShouldBe(1);
+            (testPost.Comments.Where(s => s.commentType == CommentType.CommentWithLike)).Count().ShouldBe(2);
 
             (testPost.Comments.Where(s => (s as CommentBaseDto).commentType == CommentType.CommentWithLike).First() as CommentWithLikeDto)
                 .LikeCount.ShouldBe(0);
         }
 
         [Fact]
-        public async Task Should_add_A_lLke_To_Comment_With_Like()
+        public async Task Should_add_A_Like_To_Comment_With_Like()
         {
             //Act
             string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
@@ -210,24 +224,24 @@ namespace DBP.MyLittleBlog.BlogPosts
             var result2 = await _blogPostAppService.CreateCommentWithLikeAsync(
                 new CreateCommentDto
                 {
-                    BlogPostId = TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
+                    BlogPostId = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
                     Text = text
                 }
             );
 
-            var testPost = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            var testPost = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
 
             var commetWithLikeId = testPost.Comments.Where(s => s.commentType == CommentType.CommentWithLike).First().Id;
 
             _ = await _blogPostAppService.UpdateAddALikeCommentWithLikeAsync(commetWithLikeId);
 
-            var testPostUpdated = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            var testPostUpdated = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
 
 
             //Assert
-            testPostUpdated.Id.ShouldBe(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            testPostUpdated.Id.ShouldBe(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
             testPostUpdated.Comments.ShouldNotBeNull();
-            (testPostUpdated.Comments.Where(s => s.commentType == CommentType.CommentWithLike)).Count().ShouldBe(1);
+            (testPostUpdated.Comments.Where(s => s.commentType == CommentType.CommentWithLike)).Count().ShouldBe(2);
 
             (testPostUpdated.Comments.Where(s => s.commentType == CommentType.CommentWithLike).First() as CommentWithLikeDto)
                 .LikeCount.ShouldBe(1);
@@ -235,7 +249,7 @@ namespace DBP.MyLittleBlog.BlogPosts
             _ = await _blogPostAppService.UpdateAddALikeCommentWithLikeAsync(commetWithLikeId);
             _ = await _blogPostAppService.UpdateAddALikeCommentWithLikeAsync(commetWithLikeId);
             _ = await _blogPostAppService.UpdateAddALikeCommentWithLikeAsync(commetWithLikeId);
-            testPostUpdated = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            testPostUpdated = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
             (testPostUpdated.Comments.Where(s => s.commentType == CommentType.CommentWithLike).First() as CommentWithLikeDto)
               .LikeCount.ShouldBe(4);
         }
@@ -249,28 +263,28 @@ namespace DBP.MyLittleBlog.BlogPosts
             var post1 = await _blogPostAppService.CreateCommentWithLikeAsync(
                new CreateCommentDto
                {
-                   BlogPostId = TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
+                   BlogPostId = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
                    Text = "Bla Bla "
                });
 
             var post2 = await _blogPostAppService.CreateCommentWithLikeAsync(
               new CreateCommentDto
               {
-                  BlogPostId = TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
+                  BlogPostId = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
                   Text = "Bla Bla Bla Bla "
               });
 
             var post3 = await _blogPostAppService.CreateCommentWithLikeAsync(
               new CreateCommentDto
               {
-                  BlogPostId = TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
+                  BlogPostId = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
                   Text = "Bla Bla Bla Bla Bla Bla Bla"
               });
 
             var post4 = await _blogPostAppService.CreateCommentWithLikeAsync(
               new CreateCommentDto
               {
-                  BlogPostId = TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
+                  BlogPostId = TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
                   Text = "Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
               });
 
@@ -288,10 +302,10 @@ namespace DBP.MyLittleBlog.BlogPosts
 
 
             //Assert
-            var testPostUpdated = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            var testPostUpdated = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
 
 
-            (testPostUpdated.Comments.Where(s => s.commentType == CommentType.CommentWithLike)).Count().ShouldBe(4);
+            (testPostUpdated.Comments.Where(s => s.commentType == CommentType.CommentWithLike)).Count().ShouldBe(5);
 
             (testPostUpdated.Comments.Where(s => s.Id == post1.Id).First() as CommentWithLikeDto).LikeCount.ShouldBe(3);
             (testPostUpdated.Comments.Where(s => s.Id == post2.Id).First() as CommentWithLikeDto).LikeCount.ShouldBe(2);
@@ -299,7 +313,7 @@ namespace DBP.MyLittleBlog.BlogPosts
             (testPostUpdated.Comments.Where(s => s.Id == post4.Id).First() as CommentWithLikeDto).LikeCount.ShouldBe(0);
 
 
-            var postWithCommentWitLikes = await _blogPostAppService.GetCommentWihtLikesAsync(TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED);
+            var postWithCommentWitLikes = await _blogPostAppService.GetCommentWihtLikesAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
             postWithCommentWitLikes.Count.ShouldBe(3);
 
         }

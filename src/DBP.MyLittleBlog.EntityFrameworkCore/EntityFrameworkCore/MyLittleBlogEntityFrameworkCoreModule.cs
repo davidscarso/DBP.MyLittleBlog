@@ -14,6 +14,8 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using DBP.MyLittleBlog.BlogPosts;
+using DBP.MyLittleBlog.CustomRepositories;
 
 namespace DBP.MyLittleBlog.EntityFrameworkCore;
 
@@ -43,6 +45,9 @@ public class MyLittleBlogEntityFrameworkCoreModule : AbpModule
             /* Remove "includeAllEntities: true" to create
              * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
+
+            options.AddRepository<BlogPost, BlogPostRepository>();
+
         });
 
         Configure<AbpDbContextOptions>(options =>

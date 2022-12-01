@@ -1,4 +1,5 @@
 ﻿using DBP.MyLittleBlog.BlogPosts;
+using DBP.MyLittleBlog.BlogPosts.CustomRepositoryInterfaces;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Data;
@@ -9,9 +10,9 @@ namespace DBP.MyLittleBlog;
 
 public class MyLittleBlogTestDataSeedContributor : IDataSeedContributor, ITransientDependency
 {
-    private readonly IRepository<BlogPost, Guid> _blogPostRepository;
+    private readonly IBlogPostRepository _blogPostRepository;
 
-    public MyLittleBlogTestDataSeedContributor(IRepository<BlogPost, Guid> blogPostRepository)
+    public MyLittleBlogTestDataSeedContributor(IBlogPostRepository blogPostRepository)
     {
         _blogPostRepository = blogPostRepository;
     }
@@ -20,21 +21,28 @@ public class MyLittleBlogTestDataSeedContributor : IDataSeedContributor, ITransi
     {
         /* Seed additional test data... */
 
-
-        string title = "Lorem ipsum dolor sit amet";
-        string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-        string author = "John Perez";
-
-
-        BlogPost blogPost = new BlogPost(
-            TestingConstants.BLOGPOST_ID_FROM_TESTING_DATA_SEED,
-            title,
-            description,
-            author,
+        BlogPost blogPost1 = new BlogPost(
+            TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED,
+            "Dolor sit amet",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "John Perez",
             Category.Undefined
         );
+        blogPost1.UpdateCreationTime(DateTime.Now.Subtract(TimeSpan.FromDays(10)));
 
-        await _blogPostRepository.InsertAsync(blogPost, autoSave: true);
+        blogPost1.AddComment(new CommentWithLike(Guid.NewGuid(), "Consectetur adipiscing elit, sed do eiusmod.", Guid.Empty));
+        await _blogPostRepository.InsertAsync(blogPost1, autoSave: true);
 
+
+        BlogPost blogPost2 = new BlogPost(
+            TestingConstants.BLOGPOST_ID2_FROM_TESTING_DATA_SEED,
+            "Lorem ipsum",
+            "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "Fulanito Cosmes",
+            Category.Fantastic
+        );
+        blogPost2.UpdateCreationTime(DateTime.Now.Subtract(TimeSpan.FromDays(40)));
+        blogPost2.AddComment(new CommentWithLike(Guid.NewGuid(), "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.", Guid.Empty));
+        await _blogPostRepository.InsertAsync(blogPost2, autoSave: true);
     }
 }

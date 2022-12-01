@@ -21,6 +21,9 @@ namespace DBP.MyLittleBlog.BlogPosts
 
         public Task<CommentWithLikeDto> UpdateAddALikeCommentWithLikeAsync(Guid commentId);
 
-        public  Task<ICollection<CommentWithLikeDto>> GetCommentWihtLikesAsync(Guid blogPostId);
+        public Task<ICollection<CommentWithLikeDto>> GetCommentWihtLikesAsync(Guid blogPostId);
+
+        public Task<ICollection<BlogPostDto>> GetActiveAsync();
+
     }
 }
