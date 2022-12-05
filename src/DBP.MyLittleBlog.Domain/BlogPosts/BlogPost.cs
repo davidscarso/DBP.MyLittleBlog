@@ -18,6 +18,10 @@ namespace DBP.MyLittleBlog.BlogPosts
         public string Description { get; set; }
         public string Author { get; set; }
 
+        public bool IsLocked { get; private set; }
+        public bool IsClosed { get; private set; }
+        public PostCloseReason? ClosedReason { get; private set; }
+
         public virtual ICollection<CommentBase> Comments { get; private set; } = new List<CommentBase>();
 
 
@@ -54,5 +58,18 @@ namespace DBP.MyLittleBlog.BlogPosts
         {
             CreationTime = input;
         }
+
+        public void Close(PostCloseReason reason)
+        {
+            IsClosed = true;
+            ClosedReason = reason;
+        }
+
+        public void ReOpen()
+        {
+            IsClosed = false;
+            ClosedReason = null;
+        }
+
     }
 }
