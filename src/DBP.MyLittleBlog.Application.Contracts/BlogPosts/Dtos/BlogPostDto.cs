@@ -14,6 +14,10 @@ namespace DBP.MyLittleBlog.BlogPosts.Dtos
         public string Description { get; set; }
         public string Author { get; set; }
 
+        public bool IsLocked { get; set; }
+        public bool IsClosed { get; set; }
+        public PostCloseReason? ClosedReason { get; set; }
+
         public virtual ICollection<CommentBaseDto> Comments { get; set; }
     }
 }

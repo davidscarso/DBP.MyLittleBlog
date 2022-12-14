@@ -1,4 +1,5 @@
 ﻿using DBP.MyLittleBlog.BlogPosts.Dtos;
+using DBP.MyLittleBlog.DomainExceptions;
 using Shouldly;
 using System;
 using System.Linq;
@@ -317,6 +318,23 @@ namespace DBP.MyLittleBlog.BlogPosts
             postWithCommentWitLikes.Count.ShouldBe(3);
 
         }
+
+
+        [Fact]
+        public async Task Should_Fail_To_Close_Block_Post()
+        {
+
+            var result0 = await _blogPostAppService.UpdateBlockAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+            var result1 = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+
+            result1.IsLocked.ShouldBeTrue();
+
+            var exception = await Assert.ThrowsAsync<BlogPostStateException>(async () =>
+            {
+                var result = await _blogPostAppService.UpdateCloseAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+            });
+        }
+
     }
 }
 

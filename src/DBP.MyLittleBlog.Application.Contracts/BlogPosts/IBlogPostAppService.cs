@@ -25,5 +25,10 @@ namespace DBP.MyLittleBlog.BlogPosts
 
         public Task<ICollection<BlogPostDto>> GetActiveAsync();
 
+        public Task<BlogPostDto> UpdateCloseAsync(Guid blogPostId, PostCloseReason reason);
+        public Task<BlogPostDto> UpdateBlockAsync(Guid blogPostId);
+        public Task<BlogPostDto> UpdateUnBlockAsync(Guid blogPostId);
+        public Task<BlogPostDto> UpdateOpenAsync(Guid blogPostId);
+
     }
 }
