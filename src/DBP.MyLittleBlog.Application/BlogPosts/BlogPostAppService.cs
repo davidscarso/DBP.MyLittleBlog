@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -105,6 +106,54 @@ namespace DBP.MyLittleBlog.BlogPosts
             _ = await _blogPostRepository.UpdateAsync(post, true);
 
             var blogPostDto = ObjectMapper.Map<CommentWithLike, CommentWithLikeDto>(comment);
+            return blogPostDto;
+        }
+
+        public async Task<BlogPostDto> UpdateBlockAsync(Guid blogPostId)
+        {
+            var post = await _blogPostRepository.GetAsync(blogPostId);
+
+            post.Lock();
+
+            var upDatedPost = await _blogPostRepository.UpdateAsync(post, true);
+
+            var blogPostDto = ObjectMapper.Map<BlogPost, BlogPostDto>(upDatedPost);
+            return blogPostDto;
+        }
+
+        public async Task<BlogPostDto> UpdateCloseAsync(Guid blogPostId, PostCloseReason reason)
+        {
+            var post = await _blogPostRepository.GetAsync(blogPostId);
+
+            post.Close(reason);
+
+            var upDatedPost = await _blogPostRepository.UpdateAsync(post, true);
+
+            var blogPostDto = ObjectMapper.Map<BlogPost, BlogPostDto>(upDatedPost);
+            return blogPostDto;
+        }
+
+        public async Task<BlogPostDto> UpdateOpenAsync(Guid blogPostId)
+        {
+            var post = await _blogPostRepository.GetAsync(blogPostId);
+
+            post.ReOpen();
+
+            var upDatedPost = await _blogPostRepository.UpdateAsync(post, true);
+
+            var blogPostDto = ObjectMapper.Map<BlogPost, BlogPostDto>(upDatedPost);
+            return blogPostDto;
+        }
+
+        public async Task<BlogPostDto> UpdateUnBlockAsync(Guid blogPostId)
+        {
+            var post = await _blogPostRepository.GetAsync(blogPostId);
+
+            post.UnLock();
+
+            var upDatedPost = await _blogPostRepository.UpdateAsync(post, true);
+
+            var blogPostDto = ObjectMapper.Map<BlogPost, BlogPostDto>(upDatedPost);
             return blogPostDto;
         }
     }

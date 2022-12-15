@@ -1,9 +1,8 @@
 ﻿using DBP.MyLittleBlog.BlogPosts.Specifications;
+using DBP.MyLittleBlog.DomainExceptions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
 
@@ -17,6 +16,10 @@ namespace DBP.MyLittleBlog.BlogPosts
         public string Title { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
+
+        public bool IsLocked { get; private set; }
+        public bool IsClosed { get; private set; }
+        public PostCloseReason? ClosedReason { get; private set; }
 
         public virtual ICollection<CommentBase> Comments { get; private set; } = new List<CommentBase>();
 
@@ -36,6 +39,9 @@ namespace DBP.MyLittleBlog.BlogPosts
             Author = Check.NotNullOrWhiteSpace(author, nameof(author), maxLength: BlogPostConsts.MaxAuthorLength);
 
             Comments = new List<CommentBase>();
+
+            IsLocked = false;
+            IsClosed = false;
         }
 
         public bool IsActive()
@@ -54,5 +60,37 @@ namespace DBP.MyLittleBlog.BlogPosts
         {
             CreationTime = input;
         }
+
+        public void Close(PostCloseReason reason)
+        {
+            IsClosed = true;
+            ClosedReason = reason;
+        }
+        public void ReOpen()
+        {
+            if (IsLocked)
+            {
+                throw new BlogPostStateException("MyLittleBlog:CanNotOpenLockedPost");
+            }
+
+            IsClosed = false;
+            ClosedReason = null;
+        }
+
+        public void Lock()
+        {
+            if (!IsClosed)
+            {
+                throw new BlogPostStateException("MyLittleBlog:CanNotLockOpenedPost");
+            }
+
+            IsLocked = true;
+
+        }
+        public void UnLock()
+        {
+            IsLocked = false;
+        }
+
     }
 }
