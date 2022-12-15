@@ -66,7 +66,6 @@ namespace DBP.MyLittleBlog.BlogPosts
             IsClosed = true;
             ClosedReason = reason;
         }
-
         public void ReOpen()
         {
             if (IsLocked)

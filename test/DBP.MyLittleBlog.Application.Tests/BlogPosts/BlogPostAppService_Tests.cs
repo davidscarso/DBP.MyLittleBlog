@@ -2,6 +2,7 @@
 using DBP.MyLittleBlog.DomainExceptions;
 using Shouldly;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -321,17 +322,33 @@ namespace DBP.MyLittleBlog.BlogPosts
 
 
         [Fact]
-        public async Task Should_Fail_To_Close_Block_Post()
+        public async Task Should_Fail_To_Block_A_Open_Post()
         {
+            var result2 = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
 
-            var result0 = await _blogPostAppService.UpdateBlockAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
-            var result1 = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
-
-            result1.IsLocked.ShouldBeTrue();
+            result2.IsClosed.ShouldBeFalse();
+            result2.IsLocked.ShouldBeFalse();
 
             var exception = await Assert.ThrowsAsync<BlogPostStateException>(async () =>
             {
-                var result = await _blogPostAppService.UpdateCloseAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+                var result = await _blogPostAppService.UpdateBlockAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+            });
+        }
+
+        [Fact]
+        public async Task Should_Fail_To_ReOpen_A_Blok_Post()
+        {
+
+            var result0 = await _blogPostAppService.UpdateCloseAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED, PostCloseReason.ReasonA);
+            var result1 = await _blogPostAppService.UpdateBlockAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+            var result2 = await _blogPostAppService.GetAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
+
+            result2.IsClosed.ShouldBeTrue();
+            result2.IsLocked.ShouldBeTrue();
+
+            var exception = await Assert.ThrowsAsync<BlogPostStateException>(async () =>
+            {
+                var result = await _blogPostAppService.UpdateOpenAsync(TestingConstants.BLOGPOST_ID1_FROM_TESTING_DATA_SEED);
             });
         }
 
