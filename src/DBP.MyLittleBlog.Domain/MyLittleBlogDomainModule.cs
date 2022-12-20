@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DBP.MyLittleBlog.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -13,6 +13,7 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using ModuleA;
 
 namespace DBP.MyLittleBlog;
 
@@ -29,7 +30,8 @@ namespace DBP.MyLittleBlog;
     typeof(AbpTenantManagementDomainModule),
     typeof(AbpEmailingModule)
 )]
-public class MyLittleBlogDomainModule : AbpModule
+[DependsOn(typeof(ModuleADomainModule))]
+    public class MyLittleBlogDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

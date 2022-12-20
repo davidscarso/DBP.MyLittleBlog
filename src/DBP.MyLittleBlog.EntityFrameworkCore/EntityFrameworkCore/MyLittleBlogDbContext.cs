@@ -1,4 +1,4 @@
-﻿using DBP.MyLittleBlog.BlogPosts;
+using DBP.MyLittleBlog.BlogPosts;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 using System.Reflection.Metadata;
@@ -16,6 +16,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using ModuleA.EntityFrameworkCore;
 
 namespace DBP.MyLittleBlog.EntityFrameworkCore;
 
@@ -119,7 +120,6 @@ public class MyLittleBlogDbContext :
 
         });
 
-
         builder.Entity<Comment>(b =>
         {
         });
@@ -127,5 +127,7 @@ public class MyLittleBlogDbContext :
         builder.Entity<CommentWithLike>(b =>
         {
         });
+
+        builder.ConfigureModuleA();
     }
 }

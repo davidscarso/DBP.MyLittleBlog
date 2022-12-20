@@ -1,4 +1,4 @@
-﻿using DBP.MyLittleBlog.Localization;
+using DBP.MyLittleBlog.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
@@ -12,6 +12,7 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using ModuleA;
 
 namespace DBP.MyLittleBlog;
 
@@ -25,7 +26,8 @@ namespace DBP.MyLittleBlog;
     typeof(AbpSettingManagementDomainSharedModule),
     typeof(AbpTenantManagementDomainSharedModule)    
     )]
-public class MyLittleBlogDomainSharedModule : AbpModule
+[DependsOn(typeof(ModuleADomainSharedModule))]
+    public class MyLittleBlogDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

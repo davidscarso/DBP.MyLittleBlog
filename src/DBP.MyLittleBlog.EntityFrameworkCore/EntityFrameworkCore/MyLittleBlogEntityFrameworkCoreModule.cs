@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Uow;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -16,6 +16,7 @@ using Volo.Abp.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using DBP.MyLittleBlog.BlogPosts;
 using DBP.MyLittleBlog.CustomRepositories;
+using ModuleA.EntityFrameworkCore;
 
 namespace DBP.MyLittleBlog.EntityFrameworkCore;
 
@@ -31,7 +32,8 @@ namespace DBP.MyLittleBlog.EntityFrameworkCore;
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
-public class MyLittleBlogEntityFrameworkCoreModule : AbpModule
+[DependsOn(typeof(ModuleAEntityFrameworkCoreModule))]
+    public class MyLittleBlogEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

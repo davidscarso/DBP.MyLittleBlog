@@ -19,7 +19,7 @@
     <Content Remove="Logs\**" />
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="Logs\**" />
-  </ItemGroup>
+  <ProjectReference Include="..\..\modules\ModuleA\src\ModuleA.Web\ModuleA.Web.csproj" /></ItemGroup>
 
   <ItemGroup>
     <None Update="Pages\**\*.js">
