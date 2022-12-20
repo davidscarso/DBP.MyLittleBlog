@@ -17,6 +17,8 @@ using Microsoft.EntityFrameworkCore;
 using DBP.MyLittleBlog.BlogPosts;
 using DBP.MyLittleBlog.CustomRepositories;
 using ModuleA.EntityFrameworkCore;
+using ModuleC.EntityFrameworkCore;
+using ModuleB.EntityFrameworkCore;
 
 namespace DBP.MyLittleBlog.EntityFrameworkCore;
 
@@ -33,6 +35,8 @@ namespace DBP.MyLittleBlog.EntityFrameworkCore;
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
 [DependsOn(typeof(ModuleAEntityFrameworkCoreModule))]
+    [DependsOn(typeof(ModuleCEntityFrameworkCoreModule))]
+    [DependsOn(typeof(ModuleBEntityFrameworkCoreModule))]
     public class MyLittleBlogEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

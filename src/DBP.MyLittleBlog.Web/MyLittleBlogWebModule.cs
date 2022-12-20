@@ -35,6 +35,8 @@ using System.Collections.Generic;
 using Volo.Abp.Json.SystemTextJson;
 using DBP.MyLittleBlog.BlogPosts.Dtos;
 using ModuleA.Web;
+using ModuleC.Web;
+using ModuleB.Web;
 
 namespace DBP.MyLittleBlog.Web;
 
@@ -52,7 +54,9 @@ namespace DBP.MyLittleBlog.Web;
     typeof(AbpSwashbuckleModule)
     )]
 [DependsOn(typeof(ModuleAWebModule))]
-public class MyLittleBlogWebModule : AbpModule
+[DependsOn(typeof(ModuleCWebModule))]
+    [DependsOn(typeof(ModuleBWebModule))]
+    public class MyLittleBlogWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

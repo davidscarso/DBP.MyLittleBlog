@@ -10,7 +10,10 @@
   <ItemGroup>
     <ProjectReference Include="..\DBP.MyLittleBlog.Domain\DBP.MyLittleBlog.Domain.csproj" />
     <ProjectReference Include="..\DBP.MyLittleBlog.Application.Contracts\DBP.MyLittleBlog.Application.Contracts.csproj" />
-  <ProjectReference Include="..\..\modules\ModuleA\src\ModuleA.Application\ModuleA.Application.csproj" /></ItemGroup>
+    <ProjectReference Include="..\..\modules\ModuleA\src\ModuleA.Application\ModuleA.Application.csproj" />
+    <ProjectReference Include="..\..\modules\ModuleC\src\ModuleC.Application\ModuleC.Application.csproj" />
+    <ProjectReference Include="..\..\modules\ModuleB\src\ModuleB.Application\ModuleB.Application.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Account.Application" Version="6.0.1" />

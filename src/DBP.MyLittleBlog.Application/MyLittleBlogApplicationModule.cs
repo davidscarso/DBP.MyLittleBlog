@@ -7,6 +7,8 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using ModuleA;
+using ModuleC;
+using ModuleB;
 
 namespace DBP.MyLittleBlog;
 
@@ -21,6 +23,8 @@ namespace DBP.MyLittleBlog;
     typeof(AbpSettingManagementApplicationModule)
     )]
 [DependsOn(typeof(ModuleAApplicationModule))]
+    [DependsOn(typeof(ModuleCApplicationModule))]
+    [DependsOn(typeof(ModuleBApplicationModule))]
     public class MyLittleBlogApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

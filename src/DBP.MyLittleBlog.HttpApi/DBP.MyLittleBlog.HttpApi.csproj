@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DBP.MyLittleBlog.Application.Contracts\DBP.MyLittleBlog.Application.Contracts.csproj" />
-  <ProjectReference Include="..\..\modules\ModuleA\src\ModuleA.HttpApi\ModuleA.HttpApi.csproj" /></ItemGroup>
+  <ProjectReference Include="..\..\modules\ModuleA\src\ModuleA.HttpApi\ModuleA.HttpApi.csproj" /><ProjectReference Include="..\..\modules\ModuleC\src\ModuleC.HttpApi\ModuleC.HttpApi.csproj" /><ProjectReference Include="..\..\modules\ModuleB\src\ModuleB.HttpApi\ModuleB.HttpApi.csproj" /></ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Account.HttpApi" Version="6.0.1" />

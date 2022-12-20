@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>ModuleC</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="6.0.1" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="6.0.1" />
+    <ProjectReference Include="..\ModuleC.Application.Contracts\ModuleC.Application.Contracts.csproj" />
+    <ProjectReference Include="..\ModuleC.Domain\ModuleC.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
