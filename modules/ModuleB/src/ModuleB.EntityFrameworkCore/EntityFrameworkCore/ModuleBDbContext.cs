@@ -10,6 +10,7 @@ public class ModuleBDbContext : AbpDbContext<ModuleBDbContext>, IModuleBDbContex
     /* Add DbSet for each Aggregate Root here. Example:
      * public DbSet<Question> Questions { get; set; }
      */
+    public DbSet<EntityB> EntityBs { get; set; }
 
     public ModuleBDbContext(DbContextOptions<ModuleBDbContext> options)
         : base(options)

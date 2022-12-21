@@ -1,33 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System;
 using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace ModuleB.EntityFrameworkCore;
 
 public static class ModuleBDbContextModelCreatingExtensions
 {
     public static void ConfigureModuleB(
-        this ModelBuilder builder)
+        this ModelBuilder builder,
+        Action<ModuleBModelBuilderConfigurationOptions> optionsAction = null)
     {
         Check.NotNull(builder, nameof(builder));
+        var options = new ModuleBModelBuilderConfigurationOptions(
+            ModuleBDbProperties.DbTablePrefix,
+            ModuleBDbProperties.DbSchema
+        );
 
-        /* Configure all entities here. Example:
-
-        builder.Entity<Question>(b =>
+        builder.Entity<EntityB>(b =>
         {
-            //Configure table & schema name
-            b.ToTable(ModuleBDbProperties.DbTablePrefix + "Questions", ModuleBDbProperties.DbSchema);
-
-            b.ConfigureByConvention();
-
-            //Properties
-            b.Property(q => q.Title).IsRequired().HasMaxLength(QuestionConsts.MaxTitleLength);
-
-            //Relations
-            b.HasMany(question => question.Tags).WithOne().HasForeignKey(qt => qt.QuestionId);
-
-            //Indexes
-            b.HasIndex(q => q.CreationTime);
+            b.ToTable(options.TablePrefix + "EntityBs", options.Schema);
+            b.ConfigureByConvention(); //auto configure for the base class props
         });
-        */
     }
 }

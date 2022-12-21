@@ -55,8 +55,8 @@ namespace DBP.MyLittleBlog.Web;
     )]
 [DependsOn(typeof(ModuleAWebModule))]
 [DependsOn(typeof(ModuleCWebModule))]
-    [DependsOn(typeof(ModuleBWebModule))]
-    public class MyLittleBlogWebModule : AbpModule
+[DependsOn(typeof(ModuleBWebModule))]
+public class MyLittleBlogWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

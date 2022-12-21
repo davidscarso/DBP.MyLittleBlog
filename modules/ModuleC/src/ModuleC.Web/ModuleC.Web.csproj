@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ModuleC.Application.Contracts\ModuleC.Application.Contracts.csproj" />
+    <ProjectReference Include="..\ModuleC.Application\ModuleC.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
