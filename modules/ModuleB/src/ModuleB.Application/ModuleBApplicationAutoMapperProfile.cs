@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ModuleB.EntityBs;
 
 namespace ModuleB;
 

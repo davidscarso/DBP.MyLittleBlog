@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ModuleB.EntityBs
+namespace ModuleB
 {
     public class CalculatedResultDto
     {

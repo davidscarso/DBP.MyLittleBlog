@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
-namespace ModuleB.EntityBs
+namespace ModuleB
 {
     public interface IEntityBAppService : IApplicationService
     {

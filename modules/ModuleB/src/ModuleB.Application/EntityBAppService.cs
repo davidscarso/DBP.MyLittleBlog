@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace ModuleB.EntityBs
+namespace ModuleB
 {
     public class EntityBAppService : ModuleBAppService, IEntityBAppService
     {
