@@ -131,7 +131,7 @@ public class MyLittleBlogDbContext :
         });
 
         builder.ConfigureModuleA();
+        builder.ConfigureModuleB();
         builder.ConfigureModuleC();
-            builder.ConfigureModuleB();
-        }
+    }
 }

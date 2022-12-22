@@ -35,9 +35,9 @@ namespace DBP.MyLittleBlog.EntityFrameworkCore;
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
 [DependsOn(typeof(ModuleAEntityFrameworkCoreModule))]
-    [DependsOn(typeof(ModuleCEntityFrameworkCoreModule))]
-    [DependsOn(typeof(ModuleBEntityFrameworkCoreModule))]
-    public class MyLittleBlogEntityFrameworkCoreModule : AbpModule
+[DependsOn(typeof(ModuleCEntityFrameworkCoreModule))]
+[DependsOn(typeof(ModuleBEntityFrameworkCoreModule))]
+public class MyLittleBlogEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

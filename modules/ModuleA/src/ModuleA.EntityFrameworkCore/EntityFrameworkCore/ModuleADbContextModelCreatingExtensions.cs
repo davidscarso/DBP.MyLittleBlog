@@ -13,9 +13,9 @@ public static class ModuleADbContextModelCreatingExtensions
     {
         Check.NotNull(builder, nameof(builder));
         var options = new ModuleAModelBuilderConfigurationOptions(
-              ModuleADbProperties.DbTablePrefix,
-              ModuleADbProperties.DbSchema
-          );
+            ModuleADbProperties.DbTablePrefix,
+            ModuleADbProperties.DbSchema
+        );
 
         builder.Entity<TodoOne>(b =>
         {

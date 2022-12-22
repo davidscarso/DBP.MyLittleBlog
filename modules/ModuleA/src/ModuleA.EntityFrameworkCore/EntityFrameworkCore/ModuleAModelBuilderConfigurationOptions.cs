@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
-
 namespace ModuleA.EntityFrameworkCore
 {
     public class ModuleAModelBuilderConfigurationOptions : AbpModelBuilderConfigurationOptions

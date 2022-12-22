@@ -8,7 +8,6 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
-using ModuleB.Permissions;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace ModuleB.Web;
@@ -55,7 +54,7 @@ public class ModuleBWebModule : AbpModule
         {
             //Configure authorization.
         });
-        
+
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             options.ConventionalControllers.Create(typeof(ModuleBApplicationModule).Assembly);
