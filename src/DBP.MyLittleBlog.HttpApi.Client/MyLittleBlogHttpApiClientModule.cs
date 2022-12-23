@@ -8,6 +8,7 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.VirtualFileSystem;
 using ModuleA;
+using ModuleB;
 
 namespace DBP.MyLittleBlog;
 
@@ -21,6 +22,7 @@ namespace DBP.MyLittleBlog;
     typeof(AbpSettingManagementHttpApiClientModule)
 )]
 [DependsOn(typeof(ModuleAHttpApiClientModule))]
+    [DependsOn(typeof(ModuleBHttpApiClientModule))]
     public class MyLittleBlogHttpApiClientModule : AbpModule
 {
     public const string RemoteServiceName = "Default";
