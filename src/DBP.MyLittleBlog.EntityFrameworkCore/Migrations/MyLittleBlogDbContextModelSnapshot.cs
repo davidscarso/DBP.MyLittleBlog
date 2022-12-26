@@ -120,6 +120,23 @@ namespace DBP.MyLittleBlog.Migrations
                     b.ToTable("ModuleATodoOnes", (string)null);
                 });
 
+            modelBuilder.Entity("ModuleB.EntityB", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Value1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value2")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ModuleBEntityBs", (string)null);
+                });
+
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
                 {
                     b.Property<Guid>("Id")

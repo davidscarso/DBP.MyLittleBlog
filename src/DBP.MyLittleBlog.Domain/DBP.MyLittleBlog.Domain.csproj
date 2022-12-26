@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DBP.MyLittleBlog.Domain.Shared\DBP.MyLittleBlog.Domain.Shared.csproj" />
-  <ProjectReference Include="..\..\modules\ModuleA\src\ModuleA.Domain\ModuleA.Domain.csproj" /></ItemGroup>
+  <ProjectReference Include="..\..\modules\ModuleA\src\ModuleA.Domain\ModuleA.Domain.csproj" /><ProjectReference Include="..\..\modules\ModuleB\src\ModuleB.Domain\ModuleB.Domain.csproj" /></ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Emailing" Version="6.0.1" />
