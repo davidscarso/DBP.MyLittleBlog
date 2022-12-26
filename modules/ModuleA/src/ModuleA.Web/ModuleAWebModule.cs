@@ -55,9 +55,11 @@ public class ModuleAWebModule : AbpModule
             //Configure authorization.
         });
 
-        Configure<AbpAspNetCoreMvcOptions>(options =>
-        {
-            options.ConventionalControllers.Create(typeof(ModuleAApplicationModule).Assembly);
-        });
+
+
+        //Configure<AbpAspNetCoreMvcOptions>(options =>
+        //{
+        //    options.ConventionalControllers.Create(typeof(ModuleAApplicationModule).Assembly);
+        //});
     }
 }

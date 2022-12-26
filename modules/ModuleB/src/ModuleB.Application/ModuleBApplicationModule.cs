@@ -3,22 +3,23 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
 
-namespace ModuleB;
-
-[DependsOn(
-    typeof(ModuleBDomainModule),
-    typeof(ModuleBApplicationContractsModule),
-    typeof(AbpDddApplicationModule),
-    typeof(AbpAutoMapperModule)
-    )]
-public class ModuleBApplicationModule : AbpModule
+namespace ModuleB
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    [DependsOn(
+        typeof(ModuleBDomainModule),
+        typeof(ModuleBApplicationContractsModule),
+        typeof(AbpDddApplicationModule),
+        typeof(AbpAutoMapperModule)
+        )]
+    public class ModuleBApplicationModule : AbpModule
     {
-        context.Services.AddAutoMapperObjectMapper<ModuleBApplicationModule>();
-        Configure<AbpAutoMapperOptions>(options =>
+        public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            options.AddMaps<ModuleBApplicationModule>(validate: true);
-        });
+            context.Services.AddAutoMapperObjectMapper<ModuleBApplicationModule>();
+            Configure<AbpAutoMapperOptions>(options =>
+            {
+                options.AddMaps<ModuleBApplicationModule>(validate: true);
+            });
+        }
     }
 }

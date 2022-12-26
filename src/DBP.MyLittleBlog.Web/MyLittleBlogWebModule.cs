@@ -36,6 +36,8 @@ using Volo.Abp.Json.SystemTextJson;
 using DBP.MyLittleBlog.BlogPosts.Dtos;
 using ModuleA.Web;
 using ModuleB.Web;
+using ModuleA;
+using ModuleB;
 
 namespace DBP.MyLittleBlog.Web;
 
@@ -54,7 +56,7 @@ namespace DBP.MyLittleBlog.Web;
     )]
 [DependsOn(typeof(ModuleAWebModule))]
 [DependsOn(typeof(ModuleBWebModule))]
-    public class MyLittleBlogWebModule : AbpModule
+public class MyLittleBlogWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
@@ -195,6 +197,9 @@ namespace DBP.MyLittleBlog.Web;
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             options.ConventionalControllers.Create(typeof(MyLittleBlogApplicationModule).Assembly);
+            // TODO: to fix this, if I disconnect both, it fails. 
+            //options.ConventionalControllers.Create(typeof(ModuleAApplicationModule).Assembly);
+            //options.ConventionalControllers.Create(typeof(ModuleBApplicationModule).Assembly);
         });
     }
 
