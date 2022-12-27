@@ -201,8 +201,8 @@ public class MyLittleBlogWebModule : AbpModule
         {
             options.ConventionalControllers.Create(typeof(MyLittleBlogApplicationModule).Assembly);
             // TODO: to fix this, if I disconnect both, it fails. 
-            //options.ConventionalControllers.Create(typeof(ModuleAApplicationModule).Assembly);
-            //options.ConventionalControllers.Create(typeof(ModuleBApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(ModuleAApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(ModuleBApplicationModule).Assembly);
             options.ConventionalControllers.Create(typeof(ModuleCApplicationModule).Assembly);//<<<<
         });
     }

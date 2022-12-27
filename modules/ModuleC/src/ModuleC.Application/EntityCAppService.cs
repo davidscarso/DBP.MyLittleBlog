@@ -1,7 +1,6 @@
 ﻿using ModuleB;
 using System;
 using System.Threading.Tasks;
-using Volo.Abp.Guids;
 
 namespace ModuleC
 {
