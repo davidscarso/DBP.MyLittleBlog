@@ -18,6 +18,7 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using ModuleA.EntityFrameworkCore;
 using ModuleB.EntityFrameworkCore;
+using ModuleC.EntityFrameworkCore;
 
 namespace DBP.MyLittleBlog.EntityFrameworkCore;
 
@@ -131,5 +132,6 @@ public class MyLittleBlogDbContext :
 
         builder.ConfigureModuleA();
         builder.ConfigureModuleB();
+            builder.ConfigureModuleC();
         }
 }

@@ -5,7 +5,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace ModuleB
 {
-    public class EntityBAppService : ModuleBAppService
+    public class EntityBAppService : ModuleBAppService, IEntityBAppService
     {
         private readonly IRepository<EntityB, Guid> _entityBRepository;
 
@@ -42,6 +42,16 @@ namespace ModuleB
                 return true;
             }
             return false;
+        }
+
+        public async Task<EntityBResultDto> GetCalculationAsync(Guid id)
+        {
+            var EntityB = await _entityBRepository.FirstOrDefaultAsync(x => x.Id == id);
+            if (EntityB != null)
+            {
+                return new EntityBResultDto(EntityB.CalculateValue());
+            }
+            return new EntityBResultDto(0);
         }
     }
 }

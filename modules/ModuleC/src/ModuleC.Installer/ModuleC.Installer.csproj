@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+        <RootNamespace>ModuleC</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.VirtualFileSystem" Version="6.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="..\..\ModuleC.abpmdl.json" />
+      <EmbeddedResource Include="..\..\ModuleC.abpmdl.json" />
+    </ItemGroup>
+
+</Project>

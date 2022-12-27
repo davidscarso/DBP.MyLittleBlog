@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace ModuleB
 {
     public class EntityBResultDto
@@ -12,5 +9,9 @@ namespace ModuleB
         {
         }
 
+        public EntityBResultDto(int result)
+        {
+            Result = result;
+        }
     }
 }

@@ -14,6 +14,7 @@ using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 using ModuleA;
 using ModuleB;
+using ModuleC;
 
 namespace DBP.MyLittleBlog;
 
@@ -29,6 +30,7 @@ namespace DBP.MyLittleBlog;
     )]
 [DependsOn(typeof(ModuleADomainSharedModule))]
     [DependsOn(typeof(ModuleBDomainSharedModule))]
+    [DependsOn(typeof(ModuleCDomainSharedModule))]
     public class MyLittleBlogDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
