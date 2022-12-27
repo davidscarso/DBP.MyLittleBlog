@@ -10,6 +10,7 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using ModuleA;
 using ModuleB;
+using ModuleC;
 
 namespace DBP.MyLittleBlog;
 
@@ -24,6 +25,7 @@ namespace DBP.MyLittleBlog;
     )]
 [DependsOn(typeof(ModuleAHttpApiModule))]
     [DependsOn(typeof(ModuleBHttpApiModule))]
+    [DependsOn(typeof(ModuleCHttpApiModule))]
     public class MyLittleBlogHttpApiModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

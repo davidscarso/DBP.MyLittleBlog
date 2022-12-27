@@ -38,6 +38,8 @@ using ModuleA.Web;
 using ModuleB.Web;
 using ModuleA;
 using ModuleB;
+using ModuleC.Web;
+using ModuleC;
 
 namespace DBP.MyLittleBlog.Web;
 
@@ -56,6 +58,7 @@ namespace DBP.MyLittleBlog.Web;
     )]
 [DependsOn(typeof(ModuleAWebModule))]
 [DependsOn(typeof(ModuleBWebModule))]
+[DependsOn(typeof(ModuleCWebModule))]
 public class MyLittleBlogWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -198,8 +201,9 @@ public class MyLittleBlogWebModule : AbpModule
         {
             options.ConventionalControllers.Create(typeof(MyLittleBlogApplicationModule).Assembly);
             // TODO: to fix this, if I disconnect both, it fails. 
-            //options.ConventionalControllers.Create(typeof(ModuleAApplicationModule).Assembly);
-            //options.ConventionalControllers.Create(typeof(ModuleBApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(ModuleAApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(ModuleBApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(ModuleCApplicationModule).Assembly);//<<<<
         });
     }
 
